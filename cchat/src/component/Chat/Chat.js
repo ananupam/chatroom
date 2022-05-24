@@ -16,8 +16,8 @@ const Chat= () => {
     const [messages, setMessages] = useState([]);
 
     const send=()=>{
-        const message= document.getElementById('chatInput').value;
-        socket.emit('messsage',{ message, id});
+        const message= document.getElementById("chatInput").value;
+        socket.emit('message',{ message, id});
         document.getElementById('chatInput').value="";
     }
 
@@ -40,12 +40,12 @@ const Chat= () => {
         })
 
         socket.on('userJoined', (data) => {
-            setMessages([...messages,data]);
+            setMessages([...messages, data]);
             console.log(data.user, data.message);
         })
 
         socket.on('leave', (data) => {
-            setMessages([...messages,data]);
+            setMessages([...messages, data]);
             console.log(data.user, data.message)
         })
 
@@ -58,13 +58,13 @@ const Chat= () => {
     useEffect(()=>{
         socket.on('sendMessage', (data) => {
             setMessages([...messages, data]);
-            alert('Message Sent');
             console.log(data.user, data.message, data.id);
         })
+
         return () =>{ 
             socket.off();
         }
-    },[messages])
+    }, [messages])
       
     return( 
         <div className="chatPage">
